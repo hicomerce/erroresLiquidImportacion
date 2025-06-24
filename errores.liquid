@@ -1,0 +1,29 @@
+    <li class="lvl1 parent megamenu{% if block.settings.custom_size %} ctsize{% endif %}" {{ block.shopify_attributes }}>{{linkLevel1}}
+      <div class="megamenu grid--table style2{% if block.settings.custom_size %} {{block.settings.mm_align}}{% else %} mmfull{% endif %}"{% if block.settings.custom_size %}style="width:{{block.settings.mm_size}}px;"{% endif %}>
+       {% if block.settings.box_sized %}<div class=" grid--table mm_layout">{% endif %}
+        <div class="gitem prColumn">
+          <ul class="grid rwcols-{{block.settings.mmcolumns}}">
+            {%- assign collection = collections[block.settings.collection] -%}
+            {% for product in collection.products limit: block.settings.pr_limit %}
+            <li class="gitem productCol">{% render 'mm-product', product:product %}</li>
+            {% endfor %}
+          </ul>
+          {%- if block.settings.prodall != blank -%}<a href="{{collection.url}}" class="btn">{{block.settings.prodall}}</a>{%- endif -%}
+        </div>
+        {%- if block.settings.ftcl -%}
+        <div class="gitem mmftcolumn tc" style="background-color:{{block.settings.ftcl_bg}};width:{{block.settings.ftcl_width}}%;">
+          {%- if block.settings.ft_link != blank -%}<a href="{{block.settings.ft_link}}">{%- endif -%}
+          {%- if block.settings.ftcl_image != blank -%}
+          {%- assign mm2img_url = block.settings.ftcl_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <p><img class="imgFl lazyload" src="{{ block.settings.ftcl_image | img_url: '50x' }}" width="{{ block.settings.ftcl_image.width }}" height="{{ block.settings.ftcl_image.height }}"
+                  data-src="{{ mm2img_url }}" data-widths="[180, 360, 540, 720, 900]" data-aspectratio="{{ block.settings.ftcl_image.aspect_ratio }}" data-sizes="auto" alt="{{ block.settings.ftcl_image.alt | escape }}"></p>
+          {%- endif -%}
+          {%- if block.settings.ftcl_title != blank -%}<h4 style="color:{{block.settings.ftcl_txt}};font-size:{{block.settings.ftcl_title_size}}px;">{{block.settings.ftcl_title}}</h4>{%- endif -%}
+          {%- if block.settings.ftcl_title != blank -%}<p style="color:{{block.settings.ftcl_txt}};font-size:{{block.settings.ftcl_subtitle_size}}px;">{{block.settings.ftcl_subtitle}}</p>{%- endif -%}
+          {%- if block.settings.ftcl_title != blank -%}<span class="btn" style="color:{{block.settings.ftcl_txt}};background-color:{{block.settings.ftcl_bg}}; border:2px solid {{block.settings.ftcl_txt}};">{{block.settings.ftcl_btn}}</span>{%- endif -%}
+          {%- if block.settings.ft_link != blank -%}</a>{%- endif -%}
+        </div>
+         {% if block.settings.box_sized %}</div>{% endif %}
+      </div>
+      {%- endif %}
+    </li>
